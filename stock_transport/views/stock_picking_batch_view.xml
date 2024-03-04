@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_batch_form_inherited" model="ir.ui.view">
+        <field name="name">stock.picking.batch.form.inherited</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                <field name="dock_id" />
+                <field name="vehical_id" />
+                <field name="vehical_category_id" />
+                <field name="batch_weight" widget="progressbar" invisible="not vehical_category_id"/>
+                <field name="batch_volume" widget="progressbar" invisible="not vehical_category_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_graph" model="ir.ui.view">
+        <field name="name">stock.picking.batch.graph</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="scheduled_date" />
+                <field name="vehical_category_id" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_gantt" model="ir.ui.view">
+        <field name="name">stock.picking.batch.gantt</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <gantt date_start="sheduled_date" date_stop="scheduled_date" default_scale="month" scales="day,week,month,year" string="Planning" display_unavailability="1" precision="{'day': 'hour:quarter', 'week': 'day:half', 'month': 'day:half'}"  default_group_by="fleet_ids" pill_label="True" >
+                
+            </gantt>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="stock_picking_batch_action_graph">
+        <field name="sequence" eval="50"/>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="stock_picking_batch_graph"/>
+        <field name="act_window_id" ref="stock_picking_batch.stock_picking_batch_action"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="stock_picking_batch_action_gantt">
+        <field name="sequence" eval="60"/>
+        <field name="view_mode">gantt</field>
+        <field name="view_id" ref="stock_picking_batch_gantt"/>
+        <field name="act_window_id" ref="stock_picking_batch.stock_picking_batch_action"/>
+    </record>
+</odoo>

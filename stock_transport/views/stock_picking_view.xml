@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="vpicktree_view_tree_inherited" model="ir.ui.view">
+        <field name="name">stock.picking.delivery.tree.inherited</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='backorder_id']" position="after">
+                <field name="shipping_volume"/>
+                <field name="shipping_weight" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
