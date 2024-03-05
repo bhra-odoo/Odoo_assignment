@@ -7,3 +7,4 @@ class BatchTransferDocks(models.Model):
     _description = 'Batch Transfer Docks'
 
     name = fields.Char('Dock Name')
+    

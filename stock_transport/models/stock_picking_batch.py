@@ -11,6 +11,8 @@ class StockPickingBatch(models.Model):
     vehical_category_id = fields.Many2one('fleet.vehicle.model.category', string='Vehical Category')
     batch_weight = fields.Float(string='Weight', compute='_compute_batch_weight', store=True)
     batch_volume = fields.Float(string='Volume', compute='_compute_batch_volume', store=True)
+    transfer_count = fields.Integer(string = "Transfer", compute='_compute_transfer_and_lines', store=True)
+    move_line_count = fields.Integer(string = "Lines", compute='_compute_transfer_and_lines', store=True)
     
     @api.depends('picking_ids', 'vehical_category_id')
     def _compute_batch_volume(self):
@@ -30,3 +32,26 @@ class StockPickingBatch(models.Model):
             self.batch_weight = total_weight * 100 / max_weight
         else:
             self.batch_weight = 0
+
+    @api.depends('batch_weight','batch_volume')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = f"('%'{record.batch_weight} Kg, {record.batch_volume} m\u00b3), {record.vehical_id.driver_id.name}" 
+
+    @api.depends('picking_ids', 'move_line_ids')
+    def _compute_transfer_and_lines(self):
+        for record in self:
+            if record.picking_ids or record.move_line_ids:
+                record.write(
+                    {
+                        'transfer_count': len(record.picking_ids),
+                        'move_line_count': len(record.move_line_ids)
+                    }
+                )
+            else:
+                record.write(
+                    {
+                        'transfer_count': 0,
+                        'move_line_count': 0
+                    }
+                )

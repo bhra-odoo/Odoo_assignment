@@ -13,11 +13,10 @@ class FleetVehicleModelCategory(models.Model):
 
     _sql_constraints = [
         ('check_max_weight_positive', 'CHECK(max_weight > 0)', 'Max Weight should be Greater than 0'),
-        ('check_max_volume_positive', 'CHECK(max_volume > 0)', 'Max weight should be Greater than 0')
+        ('check_max_volume_positive', 'CHECK(max_volume > 0)', 'Max Volume should be Greater than 0')
     ]
 
     @api.depends('max_weight','max_volume')
     def _compute_display_name(self):
         for record in self:
             record.display_name = f"{record.name} ({record.max_weight} Kg, {record.max_volume} m\u00b3)" 
-

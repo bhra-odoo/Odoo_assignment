@@ -16,6 +16,5 @@
         'views/fleet_vehicle_model_category_view.xml',
         'views/stock_picking_batch_view.xml',
         'views/stock_picking_view.xml',
-        'views/res_config_settings_view.xml'
     ],
 }

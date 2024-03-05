@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='backorder_id']" position="after">
                 <field name="shipping_volume"/>
-                <field name="shipping_weight" />
+                <field name="shipping_weight"/>
             </xpath>
         </field>
     </record>

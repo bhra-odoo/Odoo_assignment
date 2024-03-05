@@ -9,6 +9,7 @@
     'installable': True,
     'application': True,
     'depends': ['base', 'stock'],
+    'auto_install': True,
     'license': 'OEEL-1',
     'version': '1.0',
     'data': [
