@@ -8,12 +8,11 @@
     'summary': 'Transport Management System settings',
     'installable': True,
     'application': True,
-    'depends': ['base', 'stock'],
+    'depends': ['stock'],
     'auto_install': True,
     'license': 'OEEL-1',
     'version': '1.0',
     'data': [
-        'security/ir.model.access.csv',
         'views/res_config_settings_view.xml'
     ],
 }

@@ -8,7 +8,7 @@
     'summary': 'Transport Management System',
     'installable': True,
     'application': True,
-    'depends': ['base', 'stock_picking_batch', 'fleet'],
+    'depends': ['stock_picking_batch', 'fleet'],
     'license': 'OEEL-1',
     'version': '1.0',
     'data': [

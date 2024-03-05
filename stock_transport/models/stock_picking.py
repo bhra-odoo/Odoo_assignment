@@ -6,19 +6,12 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
 
-    shipping_volume = fields.Float(string='Volume',compute='_compute_shipping_volume')
-    shipping_weight = fields.Float(string='Sheeping Weight', compute='_compute_shipping_weight')
+    shipping_volume = fields.Float(string='Volume',compute='_compute_shipping_volume_weight', default=0.0)
+    shipping_weight = fields.Float(string='Shipping Weight', compute='_compute_shipping_volume_weight', default=0.0)
 
-    @api.depends('move_line_ids_without_package')
-    def _compute_shipping_volume(self):
+    @api.depends('move_ids')
+    def _compute_shipping_volume_weight(self):
         for record in self:
-            record.shipping_volume = 0
-            for volume in record.move_line_ids_without_package:
+            for volume in record.move_ids:
                     record.shipping_volume += volume.product_id.volume * volume.quantity
-
-    @api.depends('move_line_ids_without_package')
-    def _compute_shipping_weight(self):
-        for record in self:
-            record.shipping_weight = 0
-            for volume in record.move_line_ids_without_package:
                     record.shipping_weight += volume.product_id.weight * volume.quantity
