@@ -12,6 +12,6 @@ class StockPicking(models.Model):
     @api.depends('move_ids')
     def _compute_shipping_volume_weight(self):
         for record in self:
-            for volume in record.move_ids:
-                    record.shipping_volume += volume.product_id.volume * volume.quantity
-                    record.shipping_weight += volume.product_id.weight * volume.quantity
+            for info in record.move_ids:
+                record.shipping_volume += info.product_id.volume * info.quantity
+                record.shipping_weight += info.product_id.weight * info.quantity
